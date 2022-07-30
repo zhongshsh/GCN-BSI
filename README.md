@@ -1,13 +1,18 @@
-# Bundle Info
+# GCN-BSI
 
-## Requirement
+A Graph Convolutional Network to Improve Item Recommendation by Incorporating Bundle-based Side Information with Multi-level Propagations. 
+
+
+## Bundle Info
+
+### Requirement
 The code has been tested running under Python 3.7.0. The required packages are as follows:
 * torch == 1.2.0
 * numpy == 1.17.4
 * scipy == 1.4.1
 * temsorboardX == 2.0
 
-## Usage
+### Usage
 The hyperparameter search range and optimal settings have been clearly stated in the codes (see the 'CONFIG' dict in config.py).
 * Train
 
@@ -54,7 +59,7 @@ Some important hyperparameters:
   * It indicates the probability of using hard-negative samples in the further training stage.
   * We set it to 0.8 (0.4 in the item level and 0.4 in the bundle level), so the probability of simple samples is 0.2.
 
-## Dataset
+### Dataset
 We provide two processed dataset: Netease, steamGame.
 
 * `user_bundle_train.txt`
@@ -87,16 +92,16 @@ We provide two processed dataset: Netease, steamGame.
   * Each line is 'userID\t bundleID\n'.
   * Every observed interaction means user u once interacted bundle b.
   
-# Level Info
+## Level Info
 
-## Environment Requirement
+### Environment Requirement
 The code has been tested running under Python 3.6.5. The required packages are as follows:
 * tensorflow == 1.8.0
 * numpy == 1.14.3
 * scipy == 1.1.0
 * sklearn == 0.19.1
 
-## Example to Run the Codes
+### Example to Run the Codes
 The instruction of commands has been clearly stated in the codes (see the parser function in NGCF/utility/parser.py).
 * Gowalla dataset
 ```
@@ -130,7 +135,7 @@ Some important arguments:
 * `mess_dropout`
   * It indicates the message dropout ratio, which randomly drops out the outgoing messages. Usage `--mess_dropout [0.1,0.1,0.1]`.
 
-## Dataset
+### Dataset
 We provide two processed datasets: Gowalla and Amazon-book.
 * `train.txt`
   * Train file.
@@ -149,11 +154,11 @@ We provide two processed datasets: Gowalla and Amazon-book.
   * Item file.
   * Each line is a triplet (org_id, remap_id) for one item, where org_id and remap_id represent the ID of the item in the original and our datasets, respectively.
 
-## Acknowledgement
+### Acknowledgement
 
 This research is supported by the National Research Foundation, Singapore under its International Research Centres in Singapore Funding Initiative. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore.
 
-## Citation 
+### Citation 
 
 Our code is modified on the basis of the following two papers.
 
