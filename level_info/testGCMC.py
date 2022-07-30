@@ -219,22 +219,11 @@ class NGCF(object):
 
     def _create_ngcf_embed(self):
         # Generate a set of adjacency sub-matrix.
-        # print(self.norm_adj)
-        #     (0, 0)	0.015625
-        #     (0, 61255)	0.015625
-        #     (0, 61980)	0.015625
-        #     (0, 64950)	0.015625
-        #     (0, 65615)	0.015625
-        #     (0, 67032)	0.015625
         if self.node_dropout_flag:
             # node dropout.
             A_fold_hat = self._split_A_hat_node_dropout(self.norm_adj)
         else:
             A_fold_hat = self._split_A_hat(self.norm_adj)
-        # print(self.weights['user_embedding'])
-        # print(self.weights['item_embedding'])
-        # <tf.Variable 'user_embedding:0' shape=(18528, 64) dtype=float32_ref>
-        # <tf.Variable 'item_embedding:0' shape=(90520, 64) dtype=float32_ref>
         ego_embeddings = tf.concat(
             [self.weights["user_embedding"], self.weights["item_embedding"]], axis=0
         )
@@ -245,16 +234,6 @@ class NGCF(object):
 
             temp_embed = []
             for f in range(self.n_fold):
-                # print(A_fold_hat[f])
-                # print(ego_embeddings)
-                # SparseTensor(indices=Tensor("SparseTensor/indices:0", shape=(46548, 2), dtype=int64), values=Tensor("SparseTensor/values:0", shape=(46548,), dtype=float32), dense_shape=Tensor("SparseTensor/dense_shape:0", shape=(2,), dtype=int64))
-                # Tensor("concat:0", shape=(109048, 64), dtype=float32)  change = 0.21
-                # ValueError: Dimensions must be equal, but are 142151 and 109048 for 'SparseTensorDenseMatMul/SparseTensorDenseMatMul' (op: 'SparseTensorDenseMatMul') with input shapes: [46548,2], [46548], [2], [109048,64] and with input tensors computed as partial shapes: input[2] = [1090,142151].
-
-                # SparseTensor(indices=Tensor("SparseTensor/indices:0", shape=(60284, 2), dtype=int64), values=Tensor("SparseTensor/values:0", shape=(60284,), dtype=float32), dense_shape=Tensor("SparseTensor/dense_shape:0", shape=(2,), dtype=int64))
-                # Tensor("concat:0", shape=(142156, 64), dtype=float32))  nochange = 0.19
-                # ValueError: Dimensions must be equal, but are 142151 and 142156 for 'SparseTensorDenseMatMul/SparseTensorDenseMatMul' (op: 'SparseTensorDenseMatMul') with input shapes: [60284,2], [60284], [2], [142156,64] and with input tensors computed as partial shapes: input[2] = [1421,142151].
-
                 temp_embed.append(
                     tf.sparse_tensor_dense_matmul(A_fold_hat[f], ego_embeddings)
                 )

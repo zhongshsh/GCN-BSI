@@ -1,4 +1,4 @@
-# Bundle Graph Convolutional Network
+# Bundle Info
 
 ## Requirement
 The code has been tested running under Python 3.7.0. The required packages are as follows:
@@ -87,7 +87,7 @@ We provide two processed dataset: Netease, steamGame.
   * Each line is 'userID\t bundleID\n'.
   * Every observed interaction means user u once interacted bundle b.
   
-# Neural Graph Collaborative Filtering
+# Level Info
 
 ## Environment Requirement
 The code has been tested running under Python 3.6.5. The required packages are as follows:
@@ -154,6 +154,8 @@ We provide two processed datasets: Gowalla and Amazon-book.
 This research is supported by the National Research Foundation, Singapore under its International Research Centres in Singapore Funding Initiative. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore.
 
 ## Citation 
+
+Our code is modified on the basis of the following two papers.
 
 ```
 @inproceedings{BGCN20,

@@ -29,11 +29,6 @@ def main():
     setproctitle.setproctitle(f"train{CONFIG['name']}")
     os.environ["CUDA_VISIBLE_DEVICES"] = CONFIG["gpu_id"]
     device = torch.device("cuda")
-    # os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
-    # torch.device代表将torch.Tensor分配到的设备的对象。
-    # torch.device包含一个设备类型（‘cpu’或‘cuda’）和可选的设备序号。
-    # 如果设备序号不存在，则为当前设备。如：torch.Tensor用设备构建‘cuda’的结果等同于‘cuda：X’，
-    # 其中X是torch.cuda.current_device()的结果。
 
     #  fix seed
     seed = 123
@@ -45,16 +40,12 @@ def main():
     torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
 
-    # load data 数据预处理，处理类在dataset.py，主要使用coo
-    # 包括是否是hard训练的判断
-    # 得到的data是自定义类
     # ub_train,ub_tune,ui,bi
     # 调换成：ui_train,ui_tune,ub,bi
     bundle_train_data, bundle_test_data, item_data, assist_data = dataset.get_dataset(
         CONFIG["path"], CONFIG["dataset_name"], task=CONFIG["task"]
     )
 
-    # 用于train，DataLoader定义的都是一些调用方法，无处理函数
     # 该接口的目的：将自定义的Dataset根据batch size大小、是否shuffle等封装成一个Batch Size大小的Tensor，用于后面的训练。
     train_loader = DataLoader(
         bundle_train_data, 1024, True, num_workers=8, pin_memory=True
@@ -73,7 +64,7 @@ def main():
     ui_graph = item_data.ground_truth_u_i
     bi_graph = assist_data.ground_truth_b_i
 
-    #  metric 效果评估
+    #  metric
     metrics = [Recall(20), NDCG(20), Recall(40), NDCG(40), Recall(80), NDCG(80)]
     TARGET = "Recall@20"
 
@@ -132,7 +123,6 @@ def main():
             "model": CONFIG["model"],
             "sample": CONFIG["sample"],
         }
-        #  print(info)
 
         #  continue training
         if CONFIG["sample"] == "hard" and "conti_train" in CONFIG:
@@ -159,8 +149,6 @@ def main():
 
                 # test
                 if epoch % CONFIG["test_interval"] == 0:
-                    # 此处原代码出错
-                    # output_metrics = test(model, epoch+1, test_loader, device, CONFIG, metrics)
                     output_metrics = test(model, test_loader, device, CONFIG, metrics)
 
                     for metric in output_metrics:

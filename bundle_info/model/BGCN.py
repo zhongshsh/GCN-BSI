@@ -245,14 +245,10 @@ class BGCN(Model):
             i[users] for i in users_feature
         ]  # batch_f
         bundles_feature_atom, bundles_feature_non_atom = bundles_feature  # b_f
-        # print(users_feature_atom.shape)
-        # print(bundles_feature_atom.shape)
         scores = torch.mm(users_feature_atom, bundles_feature_atom.t()) + torch.mm(
             users_feature_non_atom, bundles_feature_non_atom.t()
         )  # batch_b
-        # np.save('bgcn_user.npy',torch.add(users_feature_atom, users_feature_non_atom).to(device='cpu').numpy())
-        # np.save('bgcn_item.npy',torch.add(bundles_feature_atom, bundles_feature_non_atom).to(device='cpu').numpy())
-
-        # np.save('bgcn_score.npy',scores.to(device='cpu').numpy())
-        # print(scores.shape)
+        np.save('bgcn_user.npy',torch.add(users_feature_atom, users_feature_non_atom).to(device='cpu').numpy())
+        np.save('bgcn_item.npy',torch.add(bundles_feature_atom, bundles_feature_non_atom).to(device='cpu').numpy())
+        np.save('bgcn_score.npy',scores.to(device='cpu').numpy())
         return scores
