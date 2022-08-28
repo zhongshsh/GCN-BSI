@@ -229,10 +229,10 @@ class BGCN(Model):
         users_feature_atom, users_feature_non_atom = users_feature  # batch_n_f
         bundles_feature_atom, bundles_feature_non_atom = bundles_feature  # batch_n_f
         loss = self.embed_L2_norm * (
-            (users_feature_atom ** 2).sum()
-            + (bundles_feature_atom ** 2).sum()
-            + (users_feature_non_atom ** 2).sum()
-            + (bundles_feature_non_atom ** 2).sum()
+            (users_feature_atom**2).sum()
+            + (bundles_feature_atom**2).sum()
+            + (users_feature_non_atom**2).sum()
+            + (bundles_feature_non_atom**2).sum()
         )
         return loss
 
@@ -248,7 +248,17 @@ class BGCN(Model):
         scores = torch.mm(users_feature_atom, bundles_feature_atom.t()) + torch.mm(
             users_feature_non_atom, bundles_feature_non_atom.t()
         )  # batch_b
-        np.save('bgcn_user.npy',torch.add(users_feature_atom, users_feature_non_atom).to(device='cpu').numpy())
-        np.save('bgcn_item.npy',torch.add(bundles_feature_atom, bundles_feature_non_atom).to(device='cpu').numpy())
-        np.save('bgcn_score.npy',scores.to(device='cpu').numpy())
+        np.save(
+            "bgcn_user.npy",
+            torch.add(users_feature_atom, users_feature_non_atom)
+            .to(device="cpu")
+            .numpy(),
+        )
+        np.save(
+            "bgcn_item.npy",
+            torch.add(bundles_feature_atom, bundles_feature_non_atom)
+            .to(device="cpu")
+            .numpy(),
+        )
+        np.save("bgcn_score.npy", scores.to(device="cpu").numpy())
         return scores

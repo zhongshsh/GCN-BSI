@@ -9,13 +9,13 @@ class _Loss(nn.Module):
     def __init__(self, reduction="sum"):
         """
         `reduction` (string, optional)
-        - Specifies the reduction to apply to the output: `none` | `mean` | `sum`. 
-        `none`: no reduction will be applied, 
-        `mean`: the sum of the output will be divided by the number of elements in the output, 
-        `sum`: the output will be summed. 
+        - Specifies the reduction to apply to the output: `none` | `mean` | `sum`.
+        `none`: no reduction will be applied,
+        `mean`: the sum of the output will be divided by the number of elements in the output,
+        `sum`: the output will be summed.
 
-        Note: size_average and reduce are in the process of being deprecated, 
-        and in the meantime,  specifying either of those two args will override reduction. 
+        Note: size_average and reduce are in the process of being deprecated,
+        and in the meantime,  specifying either of those two args will override reduction.
         Default: `sum`
         """
         super().__init__()

@@ -59,39 +59,7 @@ Some important hyperparameters:
   * It indicates the probability of using hard-negative samples in the further training stage.
   * We set it to 0.8 (0.4 in the item level and 0.4 in the bundle level), so the probability of simple samples is 0.2.
 
-### Dataset
-We provide two processed dataset: Netease, steamGame.
 
-* `user_bundle_train.txt`
-  * Train file.
-  * Each line is 'userID\t bundleID\n'.
-  * Every observed interaction means user u once interacted bundle b.
-
-* `user_item.txt`
-  * Train file.
-  * Each line is 'userID\t itemID\n'.
-  * Every observed interaction means user u once interacted item i. 
-
-* `bundle_item.txt`
-  * Train file.
-  * Each line is 'bundleID\t itemID\n'.
-  * Every entry means bundle b contains item i.
-
-* `Netease_data_size.txt`
-  * Assist file.
-  * The only line is 'userNum\t bundleNum\t itemNum\n'.
-  * The triplet denotes the number of users, bundles and items, respectively.
-
-* `user_bundle_tune.txt`
-  * Tune file.
-  * Each line is 'userID\t bundleID\n'.
-  * Every observed interaction means user u once interacted bundle b.
-
-* `user_bundle_test.txt`
-  * Test file.
-  * Each line is 'userID\t bundleID\n'.
-  * Every observed interaction means user u once interacted bundle b.
-  
 ## Level Info
 
 ### Environment Requirement
@@ -135,57 +103,41 @@ Some important arguments:
 * `mess_dropout`
   * It indicates the message dropout ratio, which randomly drops out the outgoing messages. Usage `--mess_dropout [0.1,0.1,0.1]`.
 
-### Dataset
-We provide two processed datasets: Gowalla and Amazon-book.
-* `train.txt`
+## Dataset
+We provide two processed dataset: Netease, steamGame.
+
+* `user_bundle_train.txt`
   * Train file.
-  * Each line is a user with her/his positive interactions with items: userID\t a list of itemID\n.
+  * Each line is 'userID\t bundleID\n'.
+  * Every observed interaction means user u once interacted bundle b.
 
-* `test.txt`
-  * Test file (positive instances).
-  * Each line is a user with her/his positive interactions with items: userID\t a list of itemID\n.
-  * Note that here we treat all unobserved interactions as the negative instances when reporting performance.
+* `user_item.txt`
+  * Train file.
+  * Each line is 'userID\t itemID\n'.
+  * Every observed interaction means user u once interacted item i. 
+
+* `bundle_item.txt`
+  * Train file.
+  * Each line is 'bundleID\t itemID\n'.
+  * Every entry means bundle b contains item i.
+
+* `Netease_data_size.txt`
+  * Assist file.
+  * The only line is 'userNum\t bundleNum\t itemNum\n'.
+  * The triplet denotes the number of users, bundles and items, respectively.
+
+* `user_bundle_tune.txt`
+  * Tune file.
+  * Each line is 'userID\t bundleID\n'.
+  * Every observed interaction means user u once interacted bundle b.
+
+* `user_bundle_test.txt`
+  * Test file.
+  * Each line is 'userID\t bundleID\n'.
+  * Every observed interaction means user u once interacted bundle b.
   
-* `user_list.txt`
-  * User file.
-  * Each line is a triplet (org_id, remap_id) for one user, where org_id and remap_id represent the ID of the user in the original and our datasets, respectively.
-  
-* `item_list.txt`
-  * Item file.
-  * Each line is a triplet (org_id, remap_id) for one item, where org_id and remap_id represent the ID of the item in the original and our datasets, respectively.
 
-### Acknowledgement
+## Acknowledgments
 
-This research is supported by the National Research Foundation, Singapore under its International Research Centres in Singapore Funding Initiative. Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore.
+Many thanks to [cjx0525](https://github.com/cjx0525) for his work [BGCN](https://github.com/cjx0525/BGCN) and [xiangwang1223](https://github.com/xiangwang1223) for his work [neural_graph_collaborative_filtering](https://github.com/xiangwang1223/neural_graph_collaborative_filtering).
 
-### Citation 
-
-Our code is modified on the basis of the following two papers.
-
-```
-@inproceedings{BGCN20,
-  author    = {Jianxin Chang and 
-               Chen Gao and 
-               Xiangnan He and 
-               Depeng Jin and 
-               Yong Li},
-  title     = {Bundle Recommendation with Graph Convolutional Networks},
-  booktitle = {Proceedings of the 43nd International {ACM} {SIGIR} Conference on
-               Research and Development in Information Retrieval, {SIGIR} 2020, Xi'an,
-               China, July 25-30, 2020.},
-  year      = {2020},
-}
-@inproceedings{NGCF19,
-  author    = {Xiang Wang and
-               Xiangnan He and
-               Meng Wang and
-               Fuli Feng and
-               Tat{-}Seng Chua},
-  title     = {Neural Graph Collaborative Filtering},
-  booktitle = {Proceedings of the 42nd International {ACM} {SIGIR} Conference on
-               Research and Development in Information Retrieval, {SIGIR} 2019, Paris,
-               France, July 21-25, 2019.},
-  pages     = {165--174},
-  year      = {2019},
-}
-```

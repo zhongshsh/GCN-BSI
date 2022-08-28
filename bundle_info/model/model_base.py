@@ -108,7 +108,7 @@ class Model(nn.Module):
         embeddings of targets for predicting -> extra loss(default: L2 loss...)
         """
         loss = self.embed_L2_norm * (
-            (users_feature ** 2).sum() + (bundles_feature ** 2).sum()
+            (users_feature**2).sum() + (bundles_feature**2).sum()
         )
         return loss
 
