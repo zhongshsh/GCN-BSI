@@ -3,7 +3,7 @@
 This repository is the implementation of "A Graph Convolutional Network to Improve Item Recommendation by Incorporating Bundle-based Side Information with Multi-level Propagations". 
 
 <p align="center">
-  <img src="https://github.com/zhongshsh/GCN-BSI/tree/master/image/framework.png">
+  <img src="https://github.com/zhongshsh/GCN-BSI/blob/master/image/framework.png">
 </p>
 
 
