@@ -50,43 +50,9 @@ def ranklist_by_heapq(u, user_pos_test, test_items, rating, Ks):
     item_score = {}
     for i in test_items:
         item_score[i] = rating[i]
-        # print(rating[i])
 
     K_max = max(Ks)
     K_max_item_score = heapq.nlargest(K_max, item_score, key=item_score.get)
-    # f = open('/home/user02/zss/ngcf/NGCF/' + args.dataset + '.txt', 'w', newline='')
-    # f = csv.writer(f)
-    # f.writerows(['user', 'recommended item', 'scores'])
-
-    # if str(u) in ["2126", "46", "2078", "8"]:
-    #     # print("u", u)
-    #     # print("user_pos_test:", user_pos_test)
-    #     # print("K_max_item_score", K_max_item_score)
-    #     for i in K_max_item_score:
-    #         f.writerows(u, i, item_score[i])
-
-    # steamgame
-    # if str(u) in ["2126", "46", "2078", "8", "3", "4", "8", "11", "18", "19", "22"]:
-    # newNetease
-    if str(u) in [
-        "7950",
-        "1440",
-        "18227",
-        "18003",
-        "145280",
-        "11553",
-        "8637",
-        "9921",
-        "11158",
-        "4587",
-        "4941",
-        "6936",
-        "5851",
-        "4398",
-        "4395",
-        "5846",
-    ]:
-        write_csv(u, K_max_item_score, rating, user_pos_test)
 
     r = []
     for i in K_max_item_score:
@@ -254,8 +220,6 @@ def test(sess, model, users_to_test, drop_flag=False, batch_test_flag=False):
                     },
                 )
 
-        # print(rate_batch, user_batch)
-        # rate_batch dtype=float32
         user_batch_rating_uid = zip(rate_batch, user_batch)
         batch_result = pool.map(test_one_user, user_batch_rating_uid)
         count += len(batch_result)

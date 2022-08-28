@@ -96,14 +96,10 @@ class BundleTrainDataset(BasicDataset):
         self.U_B_pairs = self.load_U_B_interaction()
         indice = np.array(self.U_B_pairs, dtype=np.int32)
         values = np.ones(len(self.U_B_pairs), dtype=np.float32)
-        # 构造coo_matrix需要3个等长的数组，values数组存放矩阵中的非0元素，
-        # row indices存放非0元素的行坐标，column indices存放非0元素的列坐标。
-        # https://www.cnblogs.com/zhangchaoyang/articles/5483453.html
         self.ground_truth_u_b = sp.coo_matrix(
             (values, (indice[:, 0], indice[:, 1])),
             shape=(self.num_users, self.num_bundles),
         ).tocsr()
-        # 输出ground_truth_u_b的相关信息
         print_statistics(self.ground_truth_u_b, "U-B statistics in train")
 
         if CONFIG["sample"] == "hard":
@@ -269,5 +265,4 @@ def get_dataset(path, name, task="tune", seed=123):
     )  # user_bundle_{}.txt
     print("finish loading bundle test data")
 
-    # 返回的都是 sp.coo_matrix()
     return bundle_train_data, bundle_test_data, item_data, assist_data

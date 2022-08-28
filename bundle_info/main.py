@@ -8,7 +8,7 @@ import torch.optim as optim
 import numpy as np
 import random
 from torch.utils.data import DataLoader
-import setproctitle  # 设置进程名模块
+import setproctitle
 import dataset
 from model import BGCN, BGCN_Info
 from utils import check_overfitting, early_stop, logger
@@ -41,12 +41,11 @@ def main():
     torch.backends.cudnn.deterministic = True
 
     # ub_train,ub_tune,ui,bi
-    # 调换成：ui_train,ui_tune,ub,bi
+    # change to：ui_train,ui_tune,ub,bi
     bundle_train_data, bundle_test_data, item_data, assist_data = dataset.get_dataset(
         CONFIG["path"], CONFIG["dataset_name"], task=CONFIG["task"]
     )
 
-    # 该接口的目的：将自定义的Dataset根据batch size大小、是否shuffle等封装成一个Batch Size大小的Tensor，用于后面的训练。
     train_loader = DataLoader(
         bundle_train_data, 1024, True, num_workers=8, pin_memory=True
     )
@@ -130,7 +129,7 @@ def main():
             print("load model and continue training")
 
         retry = CONFIG["retry"]  # =1
-        while retry >= 0:  # 用于排错
+        while retry >= 0:
             # log
             log.update_modelinfo(info, env, metrics)
             # try:

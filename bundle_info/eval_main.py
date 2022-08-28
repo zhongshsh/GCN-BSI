@@ -29,9 +29,6 @@ def main():
     device = torch.device("cuda")
 
     # load data
-    # ub_train,ub_test,ui,bi
-    # 调换成：ui_trai
-    # n,ui_test,ub,bi
     bundle_train_data, bundle_test_data, item_data, assist_data = dataset.get_dataset(
         CONFIG["path"], CONFIG["dataset_name"], task=CONFIG["eval_task"]
     )

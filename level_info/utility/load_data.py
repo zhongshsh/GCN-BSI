@@ -25,8 +25,6 @@ class Data(object):
         self.neg_pools = {}
 
         self.exist_users = []
-        # train_file = '/data/prj2020/zss/neural_graph_collaborative_filtering'+train_file[2:]
-        # print(train_file)
         with open(train_file) as f:
             for l in f.readlines():
                 if len(l) > 0:
@@ -39,7 +37,6 @@ class Data(object):
                     self.n_users = max(self.n_users, uid)
                     self.n_train += len(items)
 
-        # test_file = '/data/prj2020/zss/neural_graph_collaborative_filtering'+test_file[2:]
         with open(test_file) as f:
             for l in f.readlines():
                 if len(l) > 0:

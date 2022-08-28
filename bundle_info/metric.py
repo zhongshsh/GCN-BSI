@@ -4,8 +4,6 @@
 import torch
 import numpy as np
 
-# 检索评价指标
-
 _is_hit_cache = {}
 
 
@@ -64,14 +62,6 @@ class _Metric:
 
 
 class Recall(_Metric):
-    """
-    Recall in top-k samples
-    R(recall)表示召回率、查全率，指查询返回结果中相关文档占所有相关文档的比例；
-    P(precision)表示准确率、精度，指查询返回结果中相关文档占所有查询结果文档的比例；
-    CG(Cumulative Gain)累计效益
-
-    """
-
     def __init__(self, topk):
         super().__init__()
         self.topk = topk
@@ -80,7 +70,6 @@ class Recall(_Metric):
     def get_title(self):
         return "Recall@{}".format(self.topk)
 
-    # @n 前n个
     def __call__(self, scores, ground_truth):
         is_hit = get_is_hit(scores, ground_truth, self.topk)
         is_hit = is_hit.sum(dim=1)
@@ -90,17 +79,6 @@ class Recall(_Metric):
 
 
 class NDCG(_Metric):
-    """
-    NDCG in top-k samples
-    In this work, NDCG = log(2)/log(1+hit_positions)
-    Normalized Discounted Cumulative Gain (NDCG): 对于不同query, DCG的量级可能不同,
-    比如一个query对应的文档相关性都较差, 另一个query对应的文档都很好, 这样评价指标就会偏向第二个query.
-    Normalized指将一个query对应的文档所有排序中最大的DCG求出来,
-    """
-
-    # 1)推荐结果的相关性越大，DCG越大。2)相关性好的排在推荐列表前面的话，推荐效果越好，DCG越大。
-    # Discounted Cumulative Gain (DCG): 指的, Cumulative为将所有的结果累加起来,
-    # Discounted指给排在后面的结果加一个折扣系数, 排序位置越考后, 折扣系数越小.
     def DCG(self, hit, device=torch.device("cpu")):
         hit = hit / torch.log2(
             torch.arange(2, self.topk + 2, device=device, dtype=torch.float)
@@ -135,11 +113,6 @@ class NDCG(_Metric):
 
 
 class MRR(_Metric):
-    """
-    Mean reciprocal rank in top-k samples
-    Mean Reciprocal Rank (MRR). 对每个查询, 记它第一个相关的结果排在位置, 对所有query的RR取平均, 即为MRR
-    """
-
     def __init__(self, topk):
         super().__init__()
         self.topk = topk
